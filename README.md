@@ -1,0 +1,1 @@
+Users can create accounts, log in securely, and access a customizable dashboard where they can manage their profile, view updates, and interact with various widgets. With BlazeBoard, users stay organized, informed, and connected in a seamless digital environment.
