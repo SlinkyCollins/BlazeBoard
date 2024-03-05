@@ -1,0 +1,185 @@
+ /* Sign Up Page */
+
+ * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+ body {
+    display: flex;
+    margin: 0;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(#2c3e50, #3498db);
+    overflow: hidden;
+ }
+
+ .form-box {
+    max-width: 300px;
+    background: #f1f7fe;
+    overflow: hidden;
+    border-radius: 16px;
+    color: #010101;
+  }
+  
+  .form {
+    /* position: relative; */
+    display: flex;
+    flex-direction: column;
+    padding: 32px 24px 24px;
+    gap: 16px;
+    text-align: center;
+  }
+  
+  /*Form text*/
+  .title {
+    font-weight: bold;
+    font-size: 1.6rem;
+    color: rgb(16, 137, 211);
+  }
+  
+  .subtitle {
+    font-size: .9rem;
+    color: #666;
+    width: 100%;
+  }
+  
+  /*Inputs box*/
+  .form-container {
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #fff;
+    margin: 1rem 0 .5rem;
+    width: 100%;
+  }
+
+  .input-box {
+    position: relative;
+    display: flex;
+  }
+
+  #nameIcon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 12px 0px 0px 8px;
+    object-fit: cover;
+    width: 25px;
+    height: 25px;
+  }
+
+  #mailIcon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 12px 0px 0px 8px;
+    object-fit: cover;
+    width: 21px;
+    height: 21px;
+  }
+
+  #pwordIcon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 12px 0px 0px 8px;
+    object-fit: cover;
+    width: 21px;
+    height: 21px;
+  }
+
+  #eyeIcon {
+    width: 18px;
+    height: 18px;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 15px;
+    margin-right: 10px;
+    cursor: pointer;
+    visibility: hidden;
+  }
+  
+  .input {
+    background: none;
+    border: 0;
+    outline: 0;
+    height: 40px;
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    font-size: .9rem;
+    font-weight: 500;
+    padding: 25px 0px 25px 35px;
+  }
+  
+  .form-section {
+    padding: 16px;
+    font-size: .85rem;
+    background-color: #e0ecfb;
+    box-shadow: rgb(0 0 0 / 8%) 0 -1px;
+  }
+  
+  .form-section a {
+    font-weight: bold;
+    color: #0066ff;
+    transition: color .3s ease;
+    text-decoration: none;
+  }
+  
+  .form-section a:hover {
+    color: #005ce6;
+    text-decoration: underline;
+  }
+  
+  /*Button*/
+  .form button {
+    background-color: #0066ff;
+    color: #fff;
+    border: 0;
+    border-radius: 24px;
+    padding: 10px 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color .3s ease;
+  }
+  
+  .form button:hover {
+    background-color: #005ce6;
+  }
+
+  #errorMessageContainer {
+    font-size: 15px;
+    font-family: sans-serif;
+    font-weight: bold;
+    text-align: center;
+    margin: -5px 0px 5px 0px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 5px;
+    display: none;
+  }
+
+
+  .error-message {
+    border: 1px solid #ff0000;
+    background-color: #ffe6e6;
+    color: #ff0000;
+}
+
+.warning-message {
+    border: 1px solid #ffc107;
+    background-color: #fff3cd;
+    color: #ffc107;
+}
+
+.info-message {
+    border: 1px solid #007bff;
+    background-color: #cce5ff;
+    color: #007bff;
+    /* color: #ffff00; */
+}

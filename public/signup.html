@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="signup.css">
+    <link rel="shortcut icon" href="Icons/browser.png" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/fd5ff58c2d.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="form-box">
+        <form class="form">
+            <span class="title">Sign up</span>
+            <span class="subtitle">Create a free account with your email.</span>
+            <div class="form-container">
+                <div class="input-box">
+                    <img src="https://img.icons8.com/windows/96/name.png" id="nameIcon"/>
+                    <input type="text" class="input" placeholder="Full Name" id="displayName" required>
+                </div>
+                <div class="input-box">
+                    <img src="Icons/mail.svg" id="mailIcon">
+                    <input type="email" class="input" placeholder="Email" id="email" required>
+                </div>
+                <div class="input-box">
+                    <img src="Icons/lock.svg" id="pwordIcon">
+                    <input type="password" class="input" placeholder="Password" onclick="show()" id="password" required>
+                    <img src="Icons/eye-close-1.svg" id="eyeIcon">
+                </div>
+            </div>
+            <div id="errorMessageContainer"></div>
+            <button type="button" onclick="signUp()">Sign up</button>
+        </form>
+        <div class="form-section">
+          <p>Have an account already? <a href="index.html">Log in</a> </p>
+        </div>
+        </div>
+
+    <script type="module" src="script.js"></script>
+    <script>
+        let password = document.getElementById("password");
+        let eyeIcon = document.getElementById("eyeIcon");
+        const show = () => {
+            eyeIcon.style.visibility = "visible";
+        }
+
+        eyeIcon.onclick = () => {
+            if(password.type == "password") {
+                password.type = "text";
+                eyeIcon.src = "Icons/eye-open-1.svg"
+            } else {
+                password.type = "password";
+                eyeIcon.src = "Icons/eye-close-1.svg"
+            }
+        };
+    </script>
+</body>
+</html>
