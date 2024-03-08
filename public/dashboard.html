@@ -18,7 +18,10 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
-    <script src="https://kit.fontawesome.com/fd5ff58c2d.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/fd5ff58c2d.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <nav class="navbar bg-primary" data-bs-theme="dark">
@@ -63,10 +66,47 @@
     </nav>
 
     <div class="container">
-      <h1 id="named">Welcome</h1>
+      <!-- <h1 id="named">Welcome</h1>
       <p id="emailText"></p>
-      <img src="" id="dp" />
-      <p id="verificationStatus"></p>
+      <img src="" id="dp" /> -->
+      <!-- <p id="emailText"></p> -->
+    </div>
+
+    <div class="card" id="card">
+      <div class="card__img"></div>
+      <div class="card__avatar">
+        <img src="" id="dp" />
+      </div>
+      <h1 class="card__title1" id="named">Cameron Williamson</h1>
+      <div class="box">
+        <div class="card__subtitle" id="verificationStatus"></div>
+        <img src="" style="margin-top: 10px" id="verifyIcon" />
+      </div>
+      <div>
+        <p id="emailText"></p>
+      </div>
+      <div class="card__wrapper">
+        <button class="card__btn" id="modify">Modify</button>
+        <button class="card__btn card__btn-solid" onclick="signUserOut()">
+          Sign Out
+        </button>
+      </div>
+    </div>
+
+    <div class="card2" id="card2">
+      <span class="card__title2">Edit</span>
+      <p class="card__content">Modify your profile information</p>
+      <div class="card__form">
+        <input type="text" placeholder="Display Name" id="displayName" />
+        <input type="text" placeholder="Url of picture" id="photo" />
+        <input placeholder="Your Email" type="text" id="mail" />
+        <input type="password" placeholder="Password" id="password" />
+        <div class="buttons">
+          <button class="sign-up" id="goback" onclick="goBack()">Back</button>
+          <button class="sign-up">Delete Account</button>
+          <button class="sign-up" id="edit">Confirm</button>
+        </div>
+      </div>
     </div>
 
     <script type="module">
@@ -75,6 +115,7 @@
         getAuth,
         onAuthStateChanged,
         signOut,
+        updateProfile,
       } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
       const firebaseConfig = {
@@ -89,25 +130,118 @@
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
 
+      const editButton = document.getElementById("edit");
+      const goBackButton = document.getElementById("goback");
+      const modifyButton = document.getElementById("modify");
+      const displayNameField = document.getElementById("displayName");
+      const photoField = document.getElementById("photo");
+      const mailField = document.getElementById("mail");
+      const passwordField = document.getElementById("password");
+
       onAuthStateChanged(auth, (user) => {
         if (user) {
           // User is signed in
-          console.log("User signed in successfully"); 
+          console.log("User signed in successfully");
           console.log(user);
-          emailText.innerHTML = `${user.email}`;
-          dp.src = `${user.photoURL}`;
-          named.textContent = `Welcome ${user.displayName}`;
+          let nomenclature = user.displayName || "Guest";
+          let mail = user.providerData[0].email || user.email || "No Email";
+          let imago = user.photoURL;
+          emailText.innerHTML = `${mail}`;
+          dp.src = `${imago}`;
+          named.textContent = `Hello, ${nomenclature}`;
           if (user.emailVerified) {
             // User's email is verified
             document.getElementById("verificationStatus").innerText =
-              "Email is Verified";
+              "Verified";
+            document.getElementById("verifyIcon").src =
+              "Icons/check-circle (4).svg";
           } else {
             // User's email is not verified
             document.getElementById("verificationStatus").innerText =
-              "Email is not Verified";
+              "Not Verified";
+            document.getElementById("verifyIcon").src = "Icons/x-circle.svg";
           }
           const uid = user.uid;
           console.log(uid);
+
+          editButton.onclick = () => {
+            const newNameAndPhoto = {
+              newDisplayName: displayNameField.value,
+              newPhotoUrl: photoField.value,
+            };
+            const newEmail = mailField.value;
+            const newPassword = passwordField.value;
+
+            const user = auth.currentUser;
+            changeNameAndPhoto(user, newNameAndPhoto);
+          };
+
+          const changeNameAndPhoto = (user, newNameAndPhoto) => {
+            const { newDisplayName, newPhotoUrl } = newNameAndPhoto;
+            if(newDisplayName !=="" && newPhotoUrl !=="") {
+                  updateProfile(auth.currentUser, {
+                  displayName: newDisplayName,
+                  photoURL: newPhotoUrl,
+                })
+                  .then(() => {
+                    console.log("Profile updated successfully");
+                    refreshPage();
+                  })
+                  .catch((error) => {
+                    console.error(error);
+                  });
+                } else if(newDisplayName !=="") {
+                  updateProfile(auth.currentUser, {
+                  displayName: newDisplayName
+                })
+                  .then(() => {
+                    console.log("Display Name updated successfully");
+                    refreshPage();
+                  })
+                  .catch((error) => {
+                    console.error(error);
+                  });
+                } else if(newPhotoUrl !=="") {
+                  updateProfile(auth.currentUser, {
+                  photoURL: newPhotoUrl
+                })
+                  .then(() => {
+                    console.log("Profile Picture updated successfully");
+                    refreshPage();
+                  })
+                  .catch((error) => {
+                    console.error(error);
+                  });
+                } else {
+                  console.log("No info added");
+                  goBack();
+                }
+              }
+
+          function refreshPage() {
+            location.reload();
+          }
+
+          modifyButton.onclick = () => {
+            let card = document.getElementById("card");
+            let card2 = document.getElementById("card2");
+            card.style.display = "none";
+            card2.style.display = "flex";
+          };
+
+          goBackButton.onclick = () => {
+            let card = document.getElementById("card");
+            let card2 = document.getElementById("card2");
+            card.style.display = "flex";
+            card2.style.display = "none";
+          };
+
+          const goBack = () => {
+            let card = document.getElementById("card");
+            let card2 = document.getElementById("card2");
+            card.style.display = "flex";
+            card2.style.display = "none";
+          };
         } else {
           // User is signed out
           window.location.href = "index.html";
@@ -129,6 +263,7 @@
       };
       window.signUserOut = signUserOut;
     </script>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
